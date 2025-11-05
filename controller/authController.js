@@ -13,9 +13,6 @@ const login = async (req, res) => {
             "password": '$2b$10$sT/uZc1TyULyAEMlt435rOxwgj37P3eJqW0jaJov4.Sy0BWSeMqea', // hashed password for 'password123'
         }
 
-        console.log('User found:', user);
-        console.log('Provided :', req.body);
-
         if (user.email.toLowerCase() !== email.toLowerCase()) {
             return res.redirect('/login');
         }

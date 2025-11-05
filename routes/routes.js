@@ -14,6 +14,10 @@ router.get('/sticker',authenticate, (req, res) => {
     return res.sendFile(path.join(__dirname, '..', 'public', 'sticker.html'));
 });
 
+router.get('/qr',authenticate, (req, res) => {
+    return res.sendFile(path.join(__dirname, '..', 'public', 'qr.html'));
+});
+
 router.get('/shooter_sticker',authenticate, (req, res) => {
     return res.sendFile(path.join(__dirname, '..', 'public', 'shooter_sticker.html'));
 });

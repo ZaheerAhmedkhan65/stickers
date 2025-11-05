@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Document</title>
     <link rel="stylesheet" href="/css/print.css">
-    <title>Welcome</title>
 </head>
 <body>
-     <header>
+      <header>
         <a href="/sticker">Sticker</a>
         <a href="/shooter_sticker">Shooter</a>
         <a href="/qr">Qr</a>
         <a href="/logout" onclick="return confirm('Are you sure to logout ?')">Logout</a>
     </header>
-    <h1>Welcome!</h1>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<div id="qrcode"></div>
+
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://example.com",
+    width: 70,
+    height: 70,
+    colorDark: "#000",
+    colorLight: "#fff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+
+
 </body>
 </html>

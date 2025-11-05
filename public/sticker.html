@@ -16,9 +16,10 @@
 </head>
 
 <body>
-     <header>
+    <header>
         <a href="/sticker">Sticker</a>
         <a href="/shooter_sticker">Shooter</a>
+        <a href="/qr">Qr</a>
         <a href="/logout" onclick="return confirm('Are you sure to logout ?')">Logout</a>
     </header>
     <div id="parrent">
@@ -62,13 +63,13 @@
 
         </div>
         <div style="text-align: center;">
-            <img src="/img/barcode.gif" alt="" height="50px">
+            <canvas id="barcode"></canvas>
         </div>
 
         <div class="about-container">
             <b>Mfg by :-</b>
-            <span class="about-item">INCORE MEDICAL</span>
-            <p style="margin: 0;">jb j uh k u ubh u u u uoh uoh uo</p>
+            <span class="about-item" id="mfg-by-info"></span>
+            <p style="margin: 0;" id="description-info"></p>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
@@ -99,9 +100,24 @@
             <input type="date" id="exp-date" name="exp-date" required>
         </div>
 
+        <div class="form-group">
+            <label for="bar-code">Bar Code:</label>
+            <input type="text" id="bar-code" name="bar-code" required>
+        </div>
+
+        <div class="form-group">
+            <label for="mfg-by">MFG By:</label>
+            <input type="text" id="mfg-by" name="mfg-by" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required>
+        </div>
+
         <button type="submit">Submit</button>
     </form>
-
+    <script src="/js/CustomBarcode.js"></script>
     <script>
         // Run when page loads
         document.addEventListener("DOMContentLoaded", () => {
@@ -114,6 +130,9 @@
             const lengthInfo = document.getElementById("length-info");
             const mfgDateInfo = document.getElementById("mfg-date-info");
             const expDateInfo = document.getElementById("exp-date-info");
+            const mfgByInfo = document.getElementById("mfg-by-info");
+            const descriptionInfo = document.getElementById("description-info");
+            const canvas = document.getElementById("barcode");
 
             // Form inputs
             const nameInput = document.getElementById("name");
@@ -122,6 +141,9 @@
             const odInput = document.getElementById("od");
             const mfgInput = document.getElementById("mfg-date");
             const expInput = document.getElementById("exp-date");
+            const mfgByInput = document.getElementById("mfg-by");
+            const descriptionInput = document.getElementById("description");
+            const barCodeInput = document.getElementById("bar-code");
 
             // Load saved data from localStorage if available
             const savedData = JSON.parse(localStorage.getItem("productData"));
@@ -132,6 +154,10 @@
                 lengthInfo.textContent = savedData.length;
                 mfgDateInfo.textContent = savedData.mfgDate;
                 expDateInfo.textContent = savedData.expDate;
+                mfgByInfo.textContent = savedData.mfgBy || "INCORE MEDICAL";
+                descriptionInfo.textContent = savedData.description || "";
+
+                barCodeInput.value = savedData.barCode;
 
                 // Prefill form
                 nameInput.value = savedData.name;
@@ -140,6 +166,15 @@
                 mfgInput.value = savedData.mfgDate + "-01"; // add day to fit input type="date"
                 expInput.value = savedData.expDate + "-01";
                 odInput.value = savedData.od;
+                mfgByInput.value = savedData.mfgBy || "INCORE MEDICAL";
+                descriptionInput.value = savedData.description || "";
+                CustomBarcode.renderToCanvas(canvas, savedData.barCode, {
+                    mode: "binary",
+                    moduleWidth: 2,
+                    height: 80,
+                    margin: 12,
+                    includeText: true
+                });
             }
 
             // Form submit
@@ -154,7 +189,10 @@
                     length: lengthInput.value,
                     od: odInput.value,
                     mfgDate: mfgFormatted,
-                    expDate: expFormatted
+                    expDate: expFormatted,
+                    mfgBy: mfgByInput.value,
+                    description: descriptionInput.value,
+                    barCode: barCodeInput.value
                 };
 
                 // Update UI
@@ -164,6 +202,16 @@
                 lengthInfo.textContent = data.length;
                 mfgDateInfo.textContent = data.mfgDate;
                 expDateInfo.textContent = data.expDate;
+                mfgByInfo.textContent = data.mfgBy;
+                descriptionInfo.textContent = data.description;
+                // Generate Barcode
+                CustomBarcode.renderToCanvas(canvas, barCodeInput.value, {
+                    mode: "binary",
+                    moduleWidth: 2,
+                    height: 80,
+                    margin: 12,
+                    includeText: true
+                });
 
                 // Save to localStorage
                 localStorage.setItem("productData", JSON.stringify(data));
