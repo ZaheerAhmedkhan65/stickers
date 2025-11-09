@@ -73,7 +73,7 @@ body{
 }
 
 .align-center{
-    align-items: flex-end;
+    align-items:center;
 }
 
 .center{
@@ -90,7 +90,9 @@ form{
     top: 10%;
     right: 25px;
 }
-
+.border-0{
+    border: none !important;
+}
 .form-group{
     display: flex;
     flex-direction: column;

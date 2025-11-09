@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Qr Code</title>
   <link rel="stylesheet" href="/css/print.css">
   <link rel="stylesheet" href="/css/qr.css">
 </head>
@@ -13,7 +13,6 @@
   <header>
     <a href="/sticker">Sticker</a>
     <a href="/shooter_sticker">Shooter</a>
-    <a href="/qr">Qr</a>
     <a href="/logout" onclick="return confirm('Are you sure to logout ?')">Logout</a>
   </header>
 
@@ -22,13 +21,13 @@
     <div class="flex between">
       <div id="qrcode"></div>
       <div class="info-container between margens">
-        <div class="info-item">
+        <div class="info-item align-center">
           <b class="badge">REF</b>
           <div class="values">
             <span id="ref-no-info"></span>
           </div>
         </div>
-        <div class="info-item">
+        <div class="info-item align-center">
           <b class="badge">LOT</b>
           <div class="values">
             <span id="lot-info"></span>
@@ -63,7 +62,7 @@
       </div>
     </div>
 
-    <div class="footer-item center badge address-box">
+    <div class="footer-item address-box border-0">
       <div class="values">
         <span id="address-info"></span>
       </div>
@@ -80,7 +79,7 @@
       <input type="text" id="ref-no">
     </div>
     <div class="form-group">
-      <label for="lot">LOT:</label>
+      <label for="lot">Lot:</label>
       <input type="text" id="lot">
     </div>
     <div class="form-group">
@@ -94,8 +93,8 @@
     </div>
 
     <div class="form-group">
-      <label for="bar-code">Bar Code:</label>
-      <input type="text" id="bar-code" name="bar-code" required>
+      <label for="qr-code">Qr Code:</label>
+      <input type="text" id="qr-code" name="qr-code" required>
     </div>
 
     <div class="form-group">
@@ -139,7 +138,7 @@
       const lotInput = document.getElementById("lot");
       const expInput = document.getElementById("exp-date");
       const diameterInput = document.getElementById("diameter");
-      const barCodeInput = document.getElementById("bar-code");
+      const qrCodeInput = document.getElementById("qr-code");
       const mfgByInput = document.getElementById("mfg-by");
       const addressInput = document.getElementById("address");
 
@@ -178,7 +177,7 @@
           length: lengthInput.value,
           expDate: expFormatted,
           diameter: diameterInput.value,
-          barCode: barCodeInput.value,
+          qrCode: qrCodeInput.value,
           mfgBy: mfgByInput.value,
           address: addressInput.value
         };
@@ -209,7 +208,7 @@
         lengthInput.value = data.length;
         expInput.value = data.expDate ? data.expDate + "-01" : "";
         diameterInput.value = data.diameter;
-        barCodeInput.value = data.barCode;
+        qrCodeInput.value = data.qrCode;
         mfgByInput.value = data.mfgBy;
         addressInput.value = data.address;
       }
@@ -219,7 +218,7 @@
         qrContainer.innerHTML = ""; // reset QR
         console.log(JSON.stringify(data));
         qr = new QRCode(qrContainer, {
-          text: JSON.stringify(data.barCode),   // ✅ dynamic QR code content
+          text: JSON.stringify(data.qrCode),   // ✅ dynamic QR code content
           width: 80,
           height: 80,
           colorDark: "#000",
