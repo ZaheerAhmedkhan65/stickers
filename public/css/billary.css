@@ -5,6 +5,24 @@ body{
     font-family: sans-serif;
 }
 
+a{
+  text-decoration: none;
+}
+
+button{
+    background: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+button:hover{
+    border-bottom: 2px salmon;
+    border-radius: 20px;
+    border-top: 3px yellow solid;
+    background: none;
+    font-size: 14px;
+    font-weight: bold;
+}
 #parrent{
     padding:55px;
     width: 2.5in;

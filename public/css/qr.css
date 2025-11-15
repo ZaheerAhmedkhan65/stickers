@@ -2,7 +2,8 @@ body{
     background: white;
     color: black;
     font-weight: bold;
-    font-family: sans-serif;
+    font-family: arial ;
+ 
 }
 
 #parrent{
@@ -55,6 +56,24 @@ body{
     width: 100%;
 }
 
+a{
+  text-decoration: none;
+}
+
+button{
+    background: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+button:hover{
+    border-bottom: 2px salmon;
+    border-radius: 20px;
+    border-top: 3px yellow solid;
+    background: none;
+    font-size: 14px;
+    font-weight: bold;
+}
 .date-item {
     display: flex;
     align-items: center;
@@ -73,7 +92,7 @@ body{
 }
 
 .align-center{
-    align-items: flex-end;
+    align-items:center;
 }
 
 .center{
@@ -90,7 +109,9 @@ form{
     top: 10%;
     right: 25px;
 }
-
+.border-0{
+    border: none !important;
+}
 .form-group{
     display: flex;
     flex-direction: column;
