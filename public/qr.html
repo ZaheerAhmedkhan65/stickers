@@ -5,15 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="/css/print.css">
-  <link rel="stylesheet" href="/css/qr.css">
+  <link rel="stylesheet" href="/public/css/print.css">
+  <link rel="stylesheet" href="/public/css/qr.css">
 </head>
 
 <body>
   <header>
-    <a href="/sticker">Sticker</a>
-    <a href="/shooter_sticker">Shooter</a>
-    <a href="/qr">Qr</a>
+    <a href="/public/barcode.html">BarCode</a>
+    <a href="/public/shooter_sticker.html">Shooter</a>
+    <a href="/public/qr.html">Qr</a>
+    <a href="/public/mask.html">Mask</a>
     <a href="/logout" onclick="return confirm('Are you sure to logout ?')">Logout</a>
   </header>
 
@@ -22,22 +23,22 @@
     <div class="flex between">
       <div id="qrcode"></div>
       <div class="info-container between margens">
-        <div class="info-item">
+        <div class="info-item align-center">
           <b class="badge">REF</b>
           <div class="values">
-            <span id="ref-no-info"></span>
+            <b id="ref-no-info"></b>
           </div>
         </div>
-        <div class="info-item">
+        <div class="info-item align-center">
           <b class="badge">LOT</b>
           <div class="values">
-            <span id="lot-info"></span>
+            <b id="lot-info"></b>
           </div>
         </div>
 
         <div class="info-item align-center">
-          <img src="/img/expires.jpg" alt="" width="30px" height="25px">
-          <span id="exp-date-info"></span>
+          <img src="/public/img/expires.jpg" alt="" width="30px" height="25px">
+          <b id="exp-date-info"></b>
         </div>
       </div>
     </div>
@@ -45,13 +46,13 @@
       <div class="footer-item">
         <b>Diameter :</b>
         <div class="values">
-          <span id="diameter-info"></span>
+          <b id="diameter-info"></b>
         </div>
       </div>
       <div class="footer-item">
         <b>Length :</b>
         <div class="values">
-          <span><span id="length-info"></span> </span>
+          <b id="length-info"></b> 
         </div>
       </div>
 
@@ -59,13 +60,13 @@
     <div class="footer-item">
       <b>Mfg By :</b>
       <div class="values">
-        <span id="mfg-by-info"></span>
+        <b id="mfg-by-info"></b>
       </div>
     </div>
 
-    <div class="footer-item center badge address-box">
+    <div class="footer-item   address-box">
       <div class="values">
-        <span id="address-info"></span>
+        <b id="address-info"></b>
       </div>
     </div>
   </div>
@@ -73,7 +74,7 @@
   <form id="info-form">
     <div class="form-group">
       <label for="name">Name:</label>
-      <input type="text" id="name">
+      <input type="text" id="name" autocomplete="name">
     </div>
     <div class="form-group">
       <label for="ref-no">Ref. No:</label>
@@ -90,12 +91,12 @@
 
     <div class="form-group">
       <label for="exp-date">EXP Date:</label>
-      <input type="date" id="exp-date" name="exp-date" required>
+      <input type="text" id="exp-date" name="exp-date" required>
     </div>
 
     <div class="form-group">
-      <label for="bar-code">Bar Code:</label>
-      <input type="text" id="bar-code" name="bar-code" required>
+      <label for="qr-code">Qr Code:</label>
+      <input type="text" id="qr-code" name="qr-code" required>
     </div>
 
     <div class="form-group">
@@ -110,126 +111,147 @@
 
     <div class="form-group">
       <label for="address">Address:</label>
-      <input type="text" id="address" name="address" required>
+      <input type="text" id="address" name="address" autocomplete="additional-name">
     </div>
 
     <button type="submit">Submit</button>
   </form>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
+ <script>
+document.addEventListener("DOMContentLoaded", () => {
 
-      const form = document.getElementById("info-form");
+  const form = document.getElementById("info-form");
 
-      // UI elements
-      const productName = document.querySelector(".product-name");
-      const refNoInfo = document.getElementById("ref-no-info");
-      const lotInfo = document.getElementById("lot-info");
-      const lengthInfo = document.getElementById("length-info");
-      const expDateInfo = document.getElementById("exp-date-info");
-      const diameterInfo = document.getElementById("diameter-info");
-      const mfgByInfo = document.getElementById("mfg-by-info");
-      const addressInfo = document.getElementById("address-info");
+  // UI elements
+  const productName = document.querySelector(".product-name");
+  const refNoInfo = document.getElementById("ref-no-info");
+  const lotInfo = document.getElementById("lot-info");
+  const lengthInfo = document.getElementById("length-info");
+  const expDateInfo = document.getElementById("exp-date-info");
+  const diameterInfo = document.getElementById("diameter-info");
+  const mfgByInfo = document.getElementById("mfg-by-info");
+  const addressInfo = document.getElementById("address-info");
 
-      // Form inputs
-      const nameInput = document.getElementById("name");
-      const refInput = document.getElementById("ref-no");
-      const lengthInput = document.getElementById("length");
-      const lotInput = document.getElementById("lot");
-      const expInput = document.getElementById("exp-date");
-      const diameterInput = document.getElementById("diameter");
-      const barCodeInput = document.getElementById("bar-code");
-      const mfgByInput = document.getElementById("mfg-by");
-      const addressInput = document.getElementById("address");
+  // Form inputs
+  const nameInput = document.getElementById("name");
+  const refInput = document.getElementById("ref-no");
+  const lengthInput = document.getElementById("length");
+  const lotInput = document.getElementById("lot");
+  const expInput = document.getElementById("exp-date");
+  const diameterInput = document.getElementById("diameter");
+  const qrCodeInput = document.getElementById("qr-code");
+  const mfgByInput = document.getElementById("mfg-by");
+  const addressInput = document.getElementById("address");
 
+  // QR container
+  let qrContainer = document.getElementById("qrcode");
+  qrContainer.innerHTML = "";
 
-      // QR container
-      let qrContainer = document.getElementById("qrcode");
-      qrContainer.innerHTML = ""; // Clear default QR
+  let qr = new QRCode(qrContainer, {
+    text: "",
+    width: 70,
+    height: 70,
+    colorDark: "#000",
+    colorLight: "#fff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
 
-      let qr = new QRCode(qrContainer, {
-        text: "",
-        width: 70,
-        height: 70,
-        colorDark: "#000",
-        colorLight: "#fff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
+  // Load saved data
+  const savedData = JSON.parse(localStorage.getItem("productData"));
+  if (savedData) {
+    applyToScreen(savedData);
+    applyToForm(savedData);
+    updateQRCode(savedData);
+  }
 
-      // Load saved data
-      const savedData = JSON.parse(localStorage.getItem("productData"));
-      if (savedData) {
-        applyToScreen(savedData);
-        applyToForm(savedData);
-        updateQRCode(savedData);
-      }
+  // 🔥 LIVE UPDATE ON INPUT
+  function liveUpdate() {
+    const data = {
+      name: nameInput.value,
+      refNo: refInput.value,
+      lot: lotInput.value,
+      length: lengthInput.value,
+      expDate: expInput.value,
+      diameter: diameterInput.value,
+      qrCode: qrCodeInput.value,
+      mfgBy: mfgByInput.value,
+      address: addressInput.value
+    };
 
-      // Form submit
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
+    applyToScreen(data);
+    updateQRCode(data);
+  }
 
-        const expFormatted = expInput.value ? expInput.value.slice(0, 7) : "";
+  [
+    nameInput, refInput, lotInput, lengthInput, expInput,
+    diameterInput, qrCodeInput, mfgByInput, addressInput
+  ].forEach(input => {
+    input.addEventListener("input", liveUpdate);
+  });
 
-        const data = {
-          name: nameInput.value,
-          refNo: refInput.value,
-          lot: lotInput.value,
-          length: lengthInput.value,
-          expDate: expFormatted,
-          diameter: diameterInput.value,
-          barCode: barCodeInput.value,
-          mfgBy: mfgByInput.value,
-          address: addressInput.value
-        };
+  // Submit handler remains useful for saving
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-        applyToScreen(data);
-        updateQRCode(data);
+    const data = {
+      name: nameInput.value,
+      refNo: refInput.value,
+      lot: lotInput.value,
+      length: lengthInput.value,
+      expDate: expInput.value,
+      diameter: diameterInput.value,
+      qrCode: qrCodeInput.value,
+      mfgBy: mfgByInput.value,
+      address: addressInput.value
+    };
 
-        localStorage.setItem("productData", JSON.stringify(data));
-      });
+    applyToScreen(data);
+    updateQRCode(data);
+    localStorage.setItem("productData", JSON.stringify(data));
+  });
 
-      // Apply data to UI
-      function applyToScreen(data) {
-        productName.textContent = data.name;
-        refNoInfo.textContent = data.refNo;
-        lotInfo.textContent = data.lot;
-        lengthInfo.textContent = data.length;
-        expDateInfo.textContent = data.expDate;
-        diameterInfo.textContent = data.diameter;
-        mfgByInfo.textContent = data.mfgBy;
-        addressInfo.textContent = data.address;
-      }
+  // Apply to screen
+  function applyToScreen(data) {
+    productName.textContent = data.name;
+    refNoInfo.textContent = data.refNo;
+    lotInfo.textContent = data.lot;
+    lengthInfo.textContent = data.length;
+    expDateInfo.textContent = data.expDate;
+    diameterInfo.textContent = data.diameter;
+    mfgByInfo.textContent = data.mfgBy;
+    addressInfo.textContent = data.address;
+  }
 
-      // Prefill form
-      function applyToForm(data) {
-        nameInput.value = data.name;
-        refInput.value = data.refNo;
-        lotInput.value = data.lot;
-        lengthInput.value = data.length;
-        expInput.value = data.expDate ? data.expDate + "-01" : "";
-        diameterInput.value = data.diameter;
-        barCodeInput.value = data.barCode;
-        mfgByInput.value = data.mfgBy;
-        addressInput.value = data.address;
-      }
+  // Prefill form
+  function applyToForm(data) {
+    nameInput.value = data.name;
+    refInput.value = data.refNo;
+    lotInput.value = data.lot;
+    lengthInput.value = data.length;
+    expInput.value = data.expDate;
+    diameterInput.value = data.diameter;
+    qrCodeInput.value = data.qrCode;
+    mfgByInput.value = data.mfgBy;
+    addressInput.value = data.address;
+  }
 
-      // Update QR code
-      function updateQRCode(data) {
-        qrContainer.innerHTML = ""; // reset QR
-        console.log(JSON.stringify(data));
-        qr = new QRCode(qrContainer, {
-          text: JSON.stringify(data.barCode),   // ✅ dynamic QR code content
-          width: 80,
-          height: 80,
-          colorDark: "#000",
-          colorLight: "#fff",
-          correctLevel: QRCode.CorrectLevel.H
-        });
-      }
-
+  // Update QR code
+  function updateQRCode(data) {
+    qrContainer.innerHTML = "";
+    qr = new QRCode(qrContainer, {
+      text: data.qrCode,
+      width: 80,
+      height: 80,
+      colorDark: "#000",
+      colorLight: "#fff",
+      correctLevel: QRCode.CorrectLevel.H
     });
-  </script>
+  }
+
+});
+</script>
+
 
 </body>
 

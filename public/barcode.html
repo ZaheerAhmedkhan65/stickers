@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Wires</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/bar_code.css">
+    <link rel="stylesheet" href="/public/css/print.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="/public/barcode.html">BarCode</a>
+        <a href="/public/shooter_sticker.html">Shooter</a>
+        <a href="/public/qr.html">Qr</a>
+        <a href="/public/mask.html">Mask</a>
+        <a href="/logout" onclick="return confirm('Are you sure to logout ?')">Logout</a>
+    </header>
+
+    <div id="parrent">
+
+        <h2 class="product-name d-flex align-center"></h2>
+
+        <div class="d-flex g-50">
+            <div class="info-item d-flex column">
+                <b>Ref. No</b>
+                <b>O.D</b>
+                <b>Length</b>
+                <div class="d-flex align-center ml-4 w-107">
+                    <img src="/public/img/mfg.jpg" width="30" height="25">
+                    <b id="mfg-date-info"></b>
+                </div>
+            </div>
+
+            <div class="d-flex column">
+                <b id="ref-no-info"></b>
+                <b id="od-info"></b>
+                <b id="length-info"></b>
+                <div class="d-flex align-center ml-4 w-107">
+                    <img src="/public/img/expires.jpg" width="30" height="25">
+                    <b id="exp-date-info"></b>
+                </div>
+            </div>
+        </div>
+
+    
+
+        <div class="ml-4">
+            <canvas id="barcode" class="center"></canvas>
+        </div>
+
+        <div class="">
+            <b>Mfg by :-</b>
+            <b id="mfg-by-info" class="about-item"></b>
+            <p style="margin:0;" id="description-info"></p>
+        </div>
+
+    </div>
+
+    <form id="info-form" autocomplete="on">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" autocomplete="name">
+        </div>
+
+        <div class="form-group">
+            <label for="ref-no">Ref. No:</label>
+            <input type="text" id="ref-no">
+        </div>
+
+        <div class="form-group">
+            <label for="od">O.D:</label>
+            <input type="text" id="od">
+        </div>
+
+        <div class="form-group">
+            <label for="length">Length:</label>
+            <input type="text" id="length">
+        </div>
+
+        <div class="form-group">
+            <label for="mfg-date">MFG Date:</label>
+            <input type="text" id="mfg-date">
+        </div>
+
+        <div class="form-group">
+            <label for="exp-date">EXP Date:</label>
+            <input type="text" id="exp-date">
+        </div>
+
+        <div class="form-group">
+            <label for="bar-code">Bar Code:</label>
+            <input type="text" id="bar-code">
+        </div>
+
+        <div class="form-group">
+            <label for="mfg-by">MFG By:</label>
+            <input type="text" id="mfg-by">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description"></textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="/public/js/CustomBarcode.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const productName = document.querySelector(".product-name");
+            const refNoInfo = document.getElementById("ref-no-info");
+            const odInfo = document.getElementById("od-info");
+            const lengthInfo = document.getElementById("length-info");
+            const mfgDateInfo = document.getElementById("mfg-date-info");
+            const expDateInfo = document.getElementById("exp-date-info");
+            const mfgByInfo = document.getElementById("mfg-by-info");
+            const descriptionInfo = document.getElementById("description-info");
+            const canvas = document.getElementById("barcode");
+
+            const nameInput = document.getElementById("name");
+            const refInput = document.getElementById("ref-no");
+            const odInput = document.getElementById("od");
+            const lengthInput = document.getElementById("length");
+            const mfgInput = document.getElementById("mfg-date");
+            const expInput = document.getElementById("exp-date");
+            const mfgByInput = document.getElementById("mfg-by");
+            const descriptionInput = document.getElementById("description");
+            const barCodeInput = document.getElementById("bar-code");
+
+            // ==== LOAD SAVED DATA ====
+            const savedData = JSON.parse(localStorage.getItem("productData"));
+            if (savedData) {
+                nameInput.value = savedData.name;
+                refInput.value = savedData.refNo;
+                odInput.value = savedData.od;
+                lengthInput.value = savedData.length;
+                mfgInput.value = savedData.mfgDate ;
+                expInput.value = savedData.expDate;
+                mfgByInput.value = savedData.mfgBy;
+                descriptionInput.value = savedData.description;
+                barCodeInput.value = savedData.barCode;
+
+                updatePreview(false);
+            }
+
+            // ==== FORMAT DATE MM/YY ====
+            function formatDate(value) {
+                if (!value) return "";
+                const [year, month] = value.split("-");
+                return `${month}/${year.slice(2)}`;
+            }
+
+            // ==== LIVE PREVIEW FUNCTION ====
+            function updatePreview(save = true) {
+
+                nameInput.value = nameInput.value;
+                refInput.value = refInput.value;
+                odInput.value = odInput.value;
+
+             
+
+                productName.textContent = nameInput.value;
+                refNoInfo.textContent = refInput.value;
+                odInfo.textContent = odInput.value;
+                lengthInfo.textContent = lengthInput.value;
+                mfgDateInfo.textContent = mfgInput.value;
+                expDateInfo.textContent = expInput.value;
+                mfgByInfo.textContent = mfgByInput.value;
+                descriptionInfo.textContent = descriptionInput.value;
+
+                if (barCodeInput.value.trim() !== "") {
+                    CustomBarcode.renderToCanvas(canvas, barCodeInput.value, {
+                        mode: "alphanumeric",
+                        moduleWidth: 1,
+                        height: 55,
+                        margin: 6, 
+                        includeText: true,
+                        width: 220  
+                    });
+                }
+                
+
+                // Auto Save
+                if (save) {
+                    const data = {
+                        name: nameInput.value,
+                        refNo: refInput.value,
+                        od: odInput.value,
+                        length: lengthInput.value,
+                        mfgDate: mfgInput.value,
+                        expDate: expInput.value,
+                        mfgDateRaw: mfgInput.value,
+                        expDateRaw: expInput.value,
+                        mfgBy: mfgByInput.value,
+                        description: descriptionInput.value,
+                        barCode: barCodeInput.value
+                    };
+                    localStorage.setItem("productData", JSON.stringify(data));
+                }
+            }
+
+            // Add live listeners
+            [
+                nameInput, refInput, odInput, lengthInput,
+                mfgInput, expInput, mfgByInput, descriptionInput, barCodeInput
+            ].forEach(input => input.addEventListener("input", () => {
+                updatePreview();
+                
+
+            }));
+
+            // ===== RESET BUTTON =====
+            const resetBtn = document.createElement("button");
+            resetBtn.textContent = "Reset";
+            resetBtn.type = "button";
+            resetBtn.style.marginTop = "10px";
+            document.getElementById("info-form").appendChild(resetBtn);
+
+            resetBtn.addEventListener("click", () => {
+                localStorage.removeItem("productData");
+                document.getElementById("info-form").reset();
+                location.reload();
+            });
+
+            // ===== PRINT BUTTON =====
+            const printBtn = document.createElement("button");
+            printBtn.textContent = "Print Sticker";
+            printBtn.type = "button";
+            printBtn.style.marginTop = "10px";
+            document.getElementById("info-form").appendChild(printBtn);
+
+            printBtn.addEventListener("click", () => window.print());
+
+        });
+    </script>
+
+</body>
+</html>

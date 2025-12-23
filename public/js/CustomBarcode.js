@@ -23,10 +23,10 @@
 
 const CustomBarcode = (function () {
   // helper: convert text to a bit array according to mode
-  function encodeToBits(text, mode = "binary", checksum = false) {
+  function encodeToBits(text, mode = "alphanumeric", checksum = false) {
     let bits = [];
 
-    if (mode === "binary") {
+    if (mode === "alphanumeric") {
       // each char => 8-bit ASCII
       for (let i = 0; i < text.length; i++) {
         const code = text.charCodeAt(i);
@@ -88,13 +88,14 @@ const CustomBarcode = (function () {
 
   function generateSVGMarkup(text, options = {}) {
     const opts = Object.assign({
-      mode: "binary",
+      mode: "alphanumeric",
       moduleWidth: 2,
-      height: 80,
-      margin: 10,
+      height: 60,
+      margin: 6,
       background: "#ffffff",
       lineColor: "#000000",
       includeText: true,
+      width: 220,
       font: "12px monospace",
       checksum: false,
       // allow explicit width override
@@ -158,14 +159,15 @@ const CustomBarcode = (function () {
       throw new Error("First argument must be a canvas DOM node");
     }
     const opts = Object.assign({
-      mode: "binary",
-      moduleWidth: 2,
-      height: 80,
-      margin: 10,
+      mode: "alphanumeric",
+      moduleWidth: 1,
+      height: 60,
+      margin: 6,
       background: "#fff",
       lineColor: "#000",
       includeText: true,
-      font: "12px monospace",
+      width: 220,
+      font: "12px ",
       checksum: false,
     }, options);
 

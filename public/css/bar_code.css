@@ -1,0 +1,97 @@
+body{
+    background: white;
+    color: black;
+    font-weight: bold;
+    font-family:Arial, sans-serif; 
+     font-size: 14px;
+    font-weight: normal;
+}
+
+a{
+  text-decoration: none;
+}
+
+button{
+    background: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+button:hover{
+    border-bottom: 2px salmon;
+    border-radius: 20px;
+    border-top: 3px yellow solid;
+    background: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#parrent{
+    padding:55px;
+    width: 2.5in;
+    margin: 0 auto;
+    height: 2in;
+}
+
+.about-item{
+    padding: 0px 2px;
+    margin: 0;
+}
+
+.product-name {
+
+    font-size: 16px;
+}
+
+.align-center{
+    align-items: center;
+}
+
+.d-flex{
+    display: flex;
+}
+
+.column{
+    flex-direction: column; 
+}
+
+.g-50{
+    gap: 50px;
+}
+
+.ml-4{
+    margin-left: -4px;
+}
+
+.features-container {
+    margin: 8px 0;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.about-container {
+    margin-top: 2px;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+form{
+    max-width: 250px;
+    position: fixed;
+    top: 10%;
+    right: 25px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    gap: 2px;
+}
+
+.w-100{
+    width: 100%;
+}
+.w-107{
+    width: 107%;
+}

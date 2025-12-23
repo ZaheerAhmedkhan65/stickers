@@ -2,6 +2,7 @@ body{
     background: white;
     color: black;
     font-weight: bold;
+    font-family: Arial;
 }
 
 a{
@@ -11,7 +12,6 @@ a{
 button{
     background: none;
     font-size: 14px;
-    font-weight: bold;
 }
 
 button:hover{
@@ -20,7 +20,6 @@ button:hover{
     border-top: 3px yellow solid;
     background: none;
     font-size: 14px;
-    font-weight: bold;
 }
 
 #parrent{
@@ -33,15 +32,13 @@ button:hover{
 
 .company {
     text-align: center;
-    font-size: 25px;
-    font-weight: bold;
+    font-size: 20px;
     margin-top: 2px;
 }
 
 .small-text {
     text-align: center;
     font-size: 12px;
-    color: #675858;
 }
 
 .outer-circle {
@@ -107,10 +104,9 @@ button:hover{
 }
 
 .mfg-exp {
-    font-size: 12px;
+    font-size: 10px;
     position: relative;
     top: 18px;
-    color: #675858;
 }
 
 .space-between {
