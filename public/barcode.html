@@ -7,21 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide Wires</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/bar_code.css">
     <link rel="stylesheet" href="./css/print.css">
 </head>
 
 <body>
-
     <header>
         <a href="/public/barcode.html">BarCode</a>
         <a href="/public/shooter_sticker.html">Shooter</a>
         <a href="/public/qr.html">Qr</a>
         <a href="/public/mask.html">Mask</a>
-        <a href="/logout" onclick="return confirm('Are you sure to logout ?')">Logout</a>
+        <a href="/login.html" onclick="return confirm('Are you sure to logout ?')">Logout</a>
     </header>
+
+
 
     <div id="parrent">
 
@@ -49,7 +52,7 @@
             </div>
         </div>
 
-    
+
 
         <div class="ml-4">
             <canvas id="barcode" class="center"></canvas>
@@ -144,7 +147,7 @@
                 refInput.value = savedData.refNo;
                 odInput.value = savedData.od;
                 lengthInput.value = savedData.length;
-                mfgInput.value = savedData.mfgDate ;
+                mfgInput.value = savedData.mfgDate;
                 expInput.value = savedData.expDate;
                 mfgByInput.value = savedData.mfgBy;
                 descriptionInput.value = savedData.description;
@@ -167,7 +170,7 @@
                 refInput.value = refInput.value;
                 odInput.value = odInput.value;
 
-             
+
 
                 productName.textContent = nameInput.value;
                 refNoInfo.textContent = refInput.value;
@@ -183,12 +186,12 @@
                         mode: "alphanumeric",
                         moduleWidth: 1,
                         height: 55,
-                        margin: 6, 
+                        margin: 6,
                         includeText: true,
-                        width: 220  
+                        width: 220
                     });
                 }
-                
+
 
                 // Auto Save
                 if (save) {
@@ -215,7 +218,7 @@
                 mfgInput, expInput, mfgByInput, descriptionInput, barCodeInput
             ].forEach(input => input.addEventListener("input", () => {
                 updatePreview();
-                
+
 
             }));
 
@@ -245,4 +248,5 @@
     </script>
 
 </body>
+
 </html>
