@@ -10,8 +10,8 @@
         href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
         rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="/public/css/shooter.css">
-    <link rel="stylesheet" href="/public/css/print.css">
+    <link rel="stylesheet" href="./css/shooter.css">
+    <link rel="stylesheet" href="./css/print.css">
 </head>
 
 <body>
@@ -41,17 +41,99 @@
         <div class="line-horizontal"></div>
         <div class="outer-circle-info text-center">8.6 - 10 mm</div>
         
-        <img src="/public/img/img.jpg" alt="img" width="90%">
+        <img src="./img/img.jpg" alt="img" width="90%">
 
         <b class="flex mfg-exp space-between">
             <div>
-                <b>MFG:</b> 03 Nov 2025
+                <b>MFG:</b> 
+                <span id="mfg-display" class="date-display">03 Nov 2025</span>
+                <span id="mfg-edit" class="date-edit" contenteditable="true" style="display:none;"></span>
+                <button id="edit-mfg-btn" class="edit-btn" title="Edit MFG Date">✏️</button>
+                <button id="delete-mfg-btn" class="delete-btn" title="Delete MFG Date">🗑️</button>
             </div>
             <div>
-                <b>EXP:</b> 03 Nov 2026
+                <b>EXP:</b> 
+                <span id="exp-display" class="date-display">03 Nov 2026</span>
+                <span id="exp-edit" class="date-edit" contenteditable="true" style="display:none;"></span>
+                <button id="edit-exp-btn" class="edit-btn" title="Edit EXP Date">✏️</button>
+                <button id="delete-exp-btn" class="delete-btn" title="Delete EXP Date">🗑️</button>
             </div>
         </b>
     </div>
+
+
+ 
+    <script>
+        // Date Management with Local Storage
+        document.addEventListener("DOMContentLoaded", () => {
+            const mfgDisplay = document.getElementById('mfg-display');
+            const expDisplay = document.getElementById('exp-display');
+            const mfgEdit = document.getElementById('mfg-edit');
+            const expEdit = document.getElementById('exp-edit');
+            
+            // Load saved dates from localStorage
+            const savedDates = JSON.parse(localStorage.getItem('shooter_dates')) || {
+                mfg: '03 Nov 2025',
+                exp: '03 Nov 2026'
+            };
+            
+            mfgDisplay.textContent = savedDates.mfg;
+            expDisplay.textContent = savedDates.exp;
+            
+            // Edit MFG Date
+            document.getElementById('edit-mfg-btn').addEventListener('click', () => {
+                mfgDisplay.style.display = 'none';
+                mfgEdit.style.display = 'inline';
+                mfgEdit.textContent = savedDates.mfg;
+                mfgEdit.focus();
+            });
+            
+            // Edit EXP Date
+            document.getElementById('edit-exp-btn').addEventListener('click', () => {
+                expDisplay.style.display = 'none';
+                expEdit.style.display = 'inline';
+                expEdit.textContent = savedDates.exp;
+                expEdit.focus();
+            });
+            
+            // Save MFG Date
+            mfgEdit.addEventListener('blur', () => {
+                const newDate = mfgEdit.textContent.trim();
+                if (newDate) {
+                    savedDates.mfg = newDate;
+                    localStorage.setItem('shooter_dates', JSON.stringify(savedDates));
+                    mfgDisplay.textContent = newDate;
+                }
+                mfgDisplay.style.display = 'inline';
+                mfgEdit.style.display = 'none';
+            });
+            
+            // Save EXP Date
+            expEdit.addEventListener('blur', () => {
+                const newDate = expEdit.textContent.trim();
+                if (newDate) {
+                    savedDates.exp = newDate;
+                    localStorage.setItem('shooter_dates', JSON.stringify(savedDates));
+                    expDisplay.textContent = newDate;
+                }
+                expDisplay.style.display = 'inline';
+                expEdit.style.display = 'none';
+            });
+            
+            // Delete MFG Date
+            document.getElementById('delete-mfg-btn').addEventListener('click', () => {
+                savedDates.mfg = '03 Nov 2025'; // Reset to default
+                localStorage.setItem('shooter_dates', JSON.stringify(savedDates));
+                mfgDisplay.textContent = savedDates.mfg;
+            });
+            
+            // Delete EXP Date
+            document.getElementById('delete-exp-btn').addEventListener('click', () => {
+                savedDates.exp = '03 Nov 2026'; // Reset to default
+                localStorage.setItem('shooter_dates', JSON.stringify(savedDates));
+                expDisplay.textContent = savedDates.exp;
+            });
+        });
+    </script>
 </body>
 
-</html>

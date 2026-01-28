@@ -112,3 +112,41 @@ button:hover{
 .space-between {
     justify-content: space-between;
 }
+
+
+
+
+/* here is latest changes */
+
+/* Date Management Styles */
+.date-display {
+    margin-right: 5px;
+}
+
+.date-edit {
+    margin-right: 5px;
+    border: 1px dashed #666;
+    padding: 1px 3px;
+    outline: none;
+}
+
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    opacity: 1;
+}
+
+/* Hide buttons in print mode */
+@media print {
+    .edit-btn, .delete-btn {
+        display: none !important;
+    }
+}
